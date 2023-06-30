@@ -1,0 +1,4 @@
+Add in alembic, snapshot that for git, then make changes
+to have it play nice with our own logging system, etc.
+
+alembic revision --autogenerate -m 'Added option table'

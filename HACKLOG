@@ -1,0 +1,24 @@
+2023-06-26
+    Initial commits were just to establish a logging system where we can
+    have things broken out by category and consistent in formatting.  We've
+    chosen to log to a single file by default, but you can pass in a filename
+    to startFileoutput() to override that.
+
+    I also made the choice of using UTC for all logging output.  This is to
+    simplify adding logging to a database later, if that's desireable.  Postgres
+    has very strange timezone support, and because of the existance of both
+    time zone aware and "flat" timestamp types, it gets very confusing to
+    mix them.
+
+2023-06-30
+    The next commit was to add database support, which will be managed
+    by SQLAlchemy as an ORM and Alembic as a migration tool.  The alembic
+    portions are commented out, as I want to establish the changes needed
+    from the default setup.
+
+    Magic line:  SQLEngine = create_engine('postgresql://@:5432/' + DB_NAME)
+
+    This uses the unix socket to connect to postgres, rather than tcp/ip, and
+    also uses the current user.  If you want to use tcp/ip, add localhost
+    in front of the required :port-number, and if you want a different user
+    tack that before the @ sign.

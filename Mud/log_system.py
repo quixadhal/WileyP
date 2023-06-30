@@ -86,10 +86,10 @@ class FileLogger(logging.FileHandler):
     :rtype: object
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename = today(), filemode = 'a'):
         if not filename.endswith(".log"):
             filename += ".log"
-        logging.FileHandler.__init__(self, filename)
+        logging.FileHandler.__init__(self, filename, mode = filemode)
 
         format_string = '%(asctime)s %(name)-8s %(levelname)-8s %(module)12s:%(lineno)5d| %(message)s'
         formatter = LogReformatter(format_string)
@@ -104,11 +104,11 @@ class Loggers(object):
     _loggers = {}
 
     @classmethod
-    def addLogger(cls, name):
+    def addLogger(cls, name, level = logging.DEBUG):
         if name not in cls._loggers.keys():
             this_log = logging.getLogger(name)
             this_stream = StreamLogger()
-            this_log.setLevel(logging.DEBUG)
+            this_log.setLevel(level)
             this_log.addHandler(this_stream)
             this_log.getName = cls.getName.__get__(this_log)  # evil
             this_log.startFileoutput = cls.startFileoutput.__get__(this_log)  # evil
@@ -142,7 +142,7 @@ class Loggers(object):
                 return i
         return None
 
-    def startFileoutput(self):
+    def startFileoutput(self, filename = today() + '.log'):
         """
         This adds a file output logging handler to the logging object
         that called it, effectively starting logging to a fixed filename,
@@ -154,7 +154,8 @@ class Loggers(object):
         """
         name = self.getName()
         print("Starting file log for %s" % name)
-        this_file = FileLogger(name + '-' + today())
+        #this_file = FileLogger(name + '-' + today())
+        this_file = FileLogger(filename)
         self.addHandler(this_file)
         Loggers._loggers[name]["file"] = this_file
 

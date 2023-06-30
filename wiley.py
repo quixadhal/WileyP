@@ -35,6 +35,17 @@ if __name__ == '__main__':
     log_main.warning('MORE Stuff happens!')
     log_main.stopFileoutput()
 
+    log_boot.info('Initializng database layer.')
+    import Mud.db_system
+    Mud.db_system.init_db()
+    from Mud.db_system import Session
+    session = Session()
+
+    #log_boot.info('Fetching options.')
+    #from Mud.option import Option
+    #options = session.query(Option).first()
+    #log_boot.info('Using database version %s, created on %s', options.version, options.date_created)
+
     run_length = datetime.datetime.utcnow() - start_time
     log_boot.info('System was up for %s' % run_length)
 
@@ -43,3 +54,7 @@ if __name__ == '__main__':
     log_boot.stopFileoutput()
 
     log_main.critical('System halted.')
+    log_main.stopFileoutput()
+
+    from Mud.test_module import test_func
+    test_func()
