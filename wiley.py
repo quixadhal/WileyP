@@ -18,6 +18,10 @@ from Mud.log_system import Loggers
 
 log_main = Loggers.addLogger('MAIN')
 log_boot = Loggers.addLogger('BOOT')
+# We add loggers here to intercept the logging that SQLAlchemy and Alembic
+# both do, so we can have their info in OUR format.
+log_sqlalchemy = Loggers.addLogger('sqlalchemy.engine', logging.WARN)
+log_alembic = Loggers.addLogger('alembic', logging.INFO)
 
 if __name__ == '__main__':
     log_main.startFileoutput()

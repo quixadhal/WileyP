@@ -23,6 +23,12 @@
     in front of the required :port-number, and if you want a different user
     tack that before the @ sign.
 
+    The actual syntax is:  driver://user:pass@localhost:port/dbname
+
+    Where you have to have SOMETHING for the host:port section, so to use
+    the unix socket, you omit the hostname, but add the unused :port part
+    so it's not an error.
+
 2023-07-01
     alembic init alembic
 
