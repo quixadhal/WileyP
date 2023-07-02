@@ -35,3 +35,13 @@
     This creates the initial boilerplate files, which have to be modified, so
     I will do a git commit at this point so it's easier to see what gets
     changed.
+
+    I added a quick hack to read in the VERSION file, so we have a
+    "code version" to use.  In theory, alembic is already supposed to handle
+    version migrations, but since I'm tracking simple version numbers for
+    git tagging purposes anyways, being able to fetch it is handy.
+
+    In my C code, I would auto-increment the version whenever I did a "make",
+    but that process doesn't exist here.  I'm not sure it's really worth the
+    effort to cobble up a git "hook" to run that auto-update as a pre-commit
+    action...

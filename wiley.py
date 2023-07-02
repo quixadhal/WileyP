@@ -32,6 +32,17 @@ if __name__ == '__main__':
     log_boot.info('System booting.')
     log_boot.info('Loggers: ' + Loggers.showLoggers())
 
+    try:
+        with open('VERSION', 'r') as f:
+            version_line = f.readline().strip('\n')
+            code_version, code_date = version_line.split('\t', 1)
+    except IOError:
+        log_boot.fatal('Could not read VERSION file!')
+        sys.exit()
+
+    log_boot.info('Code version: %s' % code_version)
+    log_boot.info('Code date: %s' % code_date)
+
     log_main.warning('Stuff happens!')
     log_main.stopFileoutput()
     log_main.warning('Sneaky Stuff happens!')
@@ -54,10 +65,10 @@ if __name__ == '__main__':
     log_boot.info('System was up for %s' % run_length)
 
     log_main.startFileoutput()
-    log_boot.critical('System halting.')
+    log_boot.fatal('System halting.')
     log_boot.stopFileoutput()
 
-    log_main.critical('System halted.')
+    log_main.fatal('System halted.')
     log_main.stopFileoutput()
 
     from Mud.test_module import test_func
