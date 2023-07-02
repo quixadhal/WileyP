@@ -22,3 +22,10 @@
     also uses the current user.  If you want to use tcp/ip, add localhost
     in front of the required :port-number, and if you want a different user
     tack that before the @ sign.
+
+2023-07-01
+    alembic init alembic
+
+    This creates the initial boilerplate files, which have to be modified, so
+    I will do a git commit at this point so it's easier to see what gets
+    changed.
