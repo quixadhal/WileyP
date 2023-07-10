@@ -1,3 +1,5 @@
-Change logging to be PDT, as the database stores things with timezones
-and will thus show the viewer their current timezone.  Maybe have python
-query the OS for the current timezone if that's not a PITA.
+Add an account system with 2FA.
+
+Add a TELNET handler for simple admin level command stuff.
+
+Decide how we want to do JSON packets for actual gameplay.

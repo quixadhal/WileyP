@@ -8,19 +8,24 @@ import pytz
 
 
 def today():
-    return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
+    #return datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
+    return datetime.datetime.now().astimezone().strftime('%Y-%m-%d')
 
 
 def now_stamp():
-    right_now = datetime.datetime.now(datetime.timezone.utc)
-    part = right_now.strftime('%Y-%m-%d %H:%M:%S')
-    msecs = right_now.microsecond
-    result = "%s.%03d %s" % (part, msecs, datetime.timezone.utc)
-    return result
+    ##right_now = datetime.datetime.now(datetime.timezone.utc)
+    #right_now = datetime.datetime.now().astimezone()
+    #part = right_now.strftime('%Y-%m-%d %H:%M:%S')
+    #msecs = right_now.microsecond
+    ##result = "%s.%03d %s" % (part, msecs, datetime.timezone.utc)
+    #result = "%s.%03d %s" % (part, msecs, right_now.strftime('%Z'))
+    #return result
+    return datetime.datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S.%f %Z')
 
 
 def now():
-    return datetime.datetime.now(datetime.timezone.utc).timestamp()
+    #return datetime.datetime.now(datetime.timezone.utc).timestamp()
+    return datetime.datetime.now().astimezone().timestamp()
 
 
 class LogReformatter(logging.Formatter):
@@ -49,12 +54,14 @@ class LogReformatter(logging.Formatter):
         return message
 
     def formatTime(self, record, datefmt=None):
-        timestamp = self.time_converter(record.created).astimezone(pytz.timezone('UTC'))
+        #timestamp = self.time_converter(record.created).astimezone(pytz.timezone('UTC'))
+        timestamp = self.time_converter(record.created).astimezone()
         if datefmt:
             result = timestamp.strftime(datefmt)
         else:
-            part = timestamp.strftime('%Y-%m-%d %H:%M:%S')
-            result = "%s.%03d %s" % (part, record.msecs, timestamp.tzinfo)
+            #part = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            #result = "%s.%03d %s" % (part, record.msecs, timestamp.tzinfo)
+            result = timestamp.strftime('%Y-%m-%d %H:%M:%S.%f %Z')
         return result
 
 
@@ -77,12 +84,14 @@ class DBLogReformatter(logging.Formatter):
         return message
 
     def formatTime(self, record, datefmt=None):
-        timestamp = self.time_converter(record.created).astimezone(pytz.timezone('UTC'))
+        #timestamp = self.time_converter(record.created).astimezone(pytz.timezone('UTC'))
+        timestamp = self.time_converter(record.created).astimezone()
         if datefmt:
             result = timestamp.strftime(datefmt)
         else:
-            part = timestamp.strftime('%Y-%m-%d %H:%M:%S')
-            result = "%s.%03d %s" % (part, record.msecs, timestamp.tzinfo)
+            #part = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+            #result = "%s.%03d %s" % (part, record.msecs, timestamp.tzinfo)
+            result = timestamp.strftime('%Y-%m-%d %H:%M:%S.%f %Z')
         return result
 
 

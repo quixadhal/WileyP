@@ -76,3 +76,8 @@
     hand-added entries, and added *.log.  This was already there from Django
     rules, but I wanted it explicit in case we ever regenerate this and
     some future new default file doesn't include it.
+
+    Changed log_system to use native timezone info, and in simplifying the
+    code to trust strftime(), expanded the microseconds places from 3 to 6.
+    This change makes it easier to work with dates in PostgreSQL, since the
+    client there will auto-convert to local timezone info as well.
