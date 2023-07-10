@@ -12,6 +12,7 @@ class Option(DataBase):
 
     date_created = Column(DateTime(timezone=True), primary_key=True, server_default=func.now())
     date_updated = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    version = Column(String)
+    db_version = Column(String)
+    code_version = Column(String)
     port = Column(Integer, default=4400)
     wizlock = Column(Boolean, default=False)

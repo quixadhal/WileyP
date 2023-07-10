@@ -65,9 +65,10 @@ ALTER TABLE public.log_entry OWNER TO wiley;
 CREATE TABLE public.option (
     date_created timestamp with time zone DEFAULT now() NOT NULL,
     date_updated timestamp with time zone DEFAULT now(),
-    version character varying,
+    db_version character varying,
     port integer,
-    wizlock boolean
+    wizlock boolean,
+    code_version character varying
 );
 
 
@@ -78,7 +79,7 @@ ALTER TABLE public.option OWNER TO wiley;
 --
 
 COPY public.alembic_version (version_num) FROM stdin;
-303092990308
+cc539ecc4805
 \.
 
 
@@ -87,18 +88,9 @@ COPY public.alembic_version (version_num) FROM stdin;
 --
 
 COPY public.log_entry (date_created, level, module, line, message, pid, tid, stack) FROM stdin;
-2023-07-10 09:37:21.16-07	INFO	wiley	65	Testing the SQL handler	197829	140087876169792	\N
-2023-07-10 09:37:21.168-07	INFO	wiley	68	System was up for 0:00:00.521622	197829	140087876169792	\N
-2023-07-10 09:37:21.175-07	CRITICAL	wiley	71	System halting.	197829	140087876169792	\N
-2023-07-10 09:38:36.796-07	INFO	wiley	65	Testing the SQL handler	197874	139918108770368	\N
-2023-07-10 09:38:36.808-07	INFO	wiley	68	System was up for 0:00:00.440810	197874	139918108770368	\N
-2023-07-10 09:38:36.813-07	CRITICAL	wiley	71	System halting.	197874	139918108770368	\N
-2023-07-10 09:39:18.26-07	INFO	wiley	65	Testing the SQL handler	197970	140095419375680	\N
-2023-07-10 09:39:18.269-07	INFO	wiley	68	System was up for 0:00:00.438382	197970	140095419375680	\N
-2023-07-10 09:39:18.274-07	CRITICAL	wiley	71	System halting.	197970	140095419375680	\N
-2023-07-10 09:40:31.905-07	INFO	wiley	65	Testing the SQL handler	198007	140253453377600	\N
-2023-07-10 09:40:31.917-07	INFO	wiley	68	System was up for 0:00:00.440683	198007	140253453377600	\N
-2023-07-10 09:40:31.924-07	CRITICAL	wiley	71	System halting.	198007	140253453377600	\N
+2023-07-10 14:40:37.953-07	INFO	wiley	71	Testing the SQL handler	205042	140106213802048	\N
+2023-07-10 14:40:37.963-07	INFO	wiley	74	System was up for 0:00:00.444702	205042	140106213802048	\N
+2023-07-10 14:40:37.967-07	CRITICAL	wiley	77	System halting.	205042	140106213802048	\N
 \.
 
 
@@ -106,8 +98,8 @@ COPY public.log_entry (date_created, level, module, line, message, pid, tid, sta
 -- Data for Name: option; Type: TABLE DATA; Schema: public; Owner: wiley
 --
 
-COPY public.option (date_created, date_updated, version, port, wizlock) FROM stdin;
-2023-07-10 09:37:21.152511-07	2023-07-10 09:37:21.152511-07	303092990308	4400	f
+COPY public.option (date_created, date_updated, db_version, port, wizlock, code_version) FROM stdin;
+2023-07-10 09:37:21.152511-07	2023-07-10 14:40:37.945379-07	cc539ecc4805	4400	f	0.008
 \.
 
 

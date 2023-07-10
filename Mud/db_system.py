@@ -50,6 +50,6 @@ def init_db():
         options = session.query(Option).first()
         if options is None:
             options = Option()
-        options.version = head_revision
+        options.db_version = head_revision
         session.add(options)
         session.commit()

@@ -62,3 +62,17 @@
     alembic's view of what it should be if the head is not current.
 
     alembic revision --autogenerate -m 'option and log_entry'
+
+    Updated option table to change version to db_version, and add a column
+    for code_version, so the database not only has the alembic migration it
+    was last using, but also the last version of the codebase.
+
+    At present, this auto-updates without any user input, just a log message
+    saying it did it.  In future, we could add a failure condition to force
+    the user to decide if they are OK with it being updated, or if they want
+    to backup/verify things first.
+
+    Tweaked .gitignore to specifically add a comment at the bottom for
+    hand-added entries, and added *.log.  This was already there from Django
+    rules, but I wanted it explicit in case we ever regenerate this and
+    some future new default file doesn't include it.

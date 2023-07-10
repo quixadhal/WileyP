@@ -1,6 +1,3 @@
-Tweak option table to save the CODE version for comparison as well as the
-database version.
-
 Change logging to be PDT, as the database stores things with timezones
 and will thus show the viewer their current timezone.  Maybe have python
 query the OS for the current timezone if that's not a PITA.

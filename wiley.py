@@ -59,7 +59,13 @@ if __name__ == '__main__':
     log_boot.info('Fetching options.')
     from Mud.option import Option
     options = session.query(Option).first()
-    log_boot.info('Using database version %s, created on %s', options.version, options.date_created)
+    log_boot.info('Using database version %s, created on %s', options.db_version, options.date_created)
+
+    if options.code_version is None or options.code_version !=  code_version:
+        log_boot.info('Updating database code_version from %s to %s', options.code_version, code_version)
+        options.code_version = code_version
+        session.add(options)
+        session.commit()
 
     log_boot.startDB()
     log_boot.info('Testing the SQL handler')
