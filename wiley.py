@@ -56,10 +56,13 @@ if __name__ == '__main__':
     from Mud.db_system import Session
     session = Session()
 
-    #log_boot.info('Fetching options.')
-    #from Mud.option import Option
-    #options = session.query(Option).first()
-    #log_boot.info('Using database version %s, created on %s', options.version, options.date_created)
+    log_boot.info('Fetching options.')
+    from Mud.option import Option
+    options = session.query(Option).first()
+    log_boot.info('Using database version %s, created on %s', options.version, options.date_created)
+
+    log_boot.startDB()
+    log_boot.info('Testing the SQL handler')
 
     run_length = datetime.datetime.utcnow() - start_time
     log_boot.info('System was up for %s' % run_length)
@@ -67,6 +70,7 @@ if __name__ == '__main__':
     log_main.startFileoutput()
     log_boot.fatal('System halting.')
     log_boot.stopFileoutput()
+    log_boot.stopDB()
 
     log_main.fatal('System halted.')
     log_main.stopFileoutput()

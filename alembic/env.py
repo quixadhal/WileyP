@@ -19,6 +19,9 @@ config = context.config
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 #target_metadata = None
+from Mud.option import Option
+from Mud.log_entry import LogEntry
+
 from Mud.db_system import DataBase
 target_metadata = DataBase.metadata
 

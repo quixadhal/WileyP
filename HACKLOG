@@ -45,3 +45,20 @@
     but that process doesn't exist here.  I'm not sure it's really worth the
     effort to cobble up a git "hook" to run that auto-update as a pre-commit
     action...
+
+2023-07-09
+    I managed to get SQL logging to work through SQLAlchemy, which is nice.
+    Obviously this can't log SQL-related errors, so it's best to use it for
+    game-related things that we'll want to do analysis on, not general
+    errors that should still go to plain old files or stderr.
+
+2023-07-10
+    Alembic is a PITA about getting the order of things "just right", but the
+    current state seems to have settled.  We have the database and code in
+    agreement, and the version script has upgrade() and downgrade() methods
+    that appear to be correct.
+
+    The db_system's init_db() method will auto-upgrade the database to match
+    alembic's view of what it should be if the head is not current.
+
+    alembic revision --autogenerate -m 'option and log_entry'

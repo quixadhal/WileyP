@@ -33,6 +33,8 @@ def init_db():
     #current_revision = None
     log_boot.info('Database revision: %s', current_revision)
     if current_revision is None:
+        from Mud.option import Option
+        from Mud.log_entry import LogEntry
         DataBase.metadata.create_all(SQLEngine)
 
     config = Config(ALEMBIC_CONFIG)
@@ -40,13 +42,14 @@ def init_db():
     head_revision = script.get_current_head()
     #head_revision = None
     if current_revision is None or current_revision != head_revision:
-        log_boot.info('Upgrading database to version %s.', head_revision)
+        from Mud.option import Option
+        from Mud.log_entry import LogEntry
         command.upgrade(config, 'head')
-        #from Mud.option import Option
-        #session = Session()
-        #options = session.query(Option).first()
-        #if options is None:
-        #    options = Option()
-        #options.version = head_revision
-        #session.add(options)
-        #session.commit()
+        log_boot.info('Upgrading database to version %s.', head_revision)
+        session = Session()
+        options = session.query(Option).first()
+        if options is None:
+            options = Option()
+        options.version = head_revision
+        session.add(options)
+        session.commit()

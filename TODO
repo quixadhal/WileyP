@@ -1,4 +1,6 @@
-Add in alembic, snapshot that for git, then make changes
-to have it play nice with our own logging system, etc.
+Tweak option table to save the CODE version for comparison as well as the
+database version.
 
-alembic revision --autogenerate -m 'Added option table'
+Change logging to be PDT, as the database stores things with timezones
+and will thus show the viewer their current timezone.  Maybe have python
+query the OS for the current timezone if that's not a PITA.
