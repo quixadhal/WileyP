@@ -3,3 +3,6 @@ Add an account system with 2FA.
 Add a TELNET handler for simple admin level command stuff.
 
 Decide how we want to do JSON packets for actual gameplay.
+
+Update the options table/class and the cli_args parser so they
+agree on the defaults for wizlock and port.

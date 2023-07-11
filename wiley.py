@@ -24,6 +24,11 @@ log_sqlalchemy = Loggers.addLogger('sqlalchemy.engine', logging.WARN)
 log_alembic = Loggers.addLogger('alembic', logging.INFO)
 
 if __name__ == '__main__':
+    # We do this right at the top, because if the user did --help
+    # The arguments parser will emit the help screen and then exit.
+    from Mud.cli_args import CLI_Args
+    cli_args = CLI_Args()
+
     log_main.startFileoutput()
     log_main.info('System initializing.')
     start_time = datetime.datetime.utcnow()
@@ -64,6 +69,19 @@ if __name__ == '__main__':
     if options.code_version is None or options.code_version !=  code_version:
         log_boot.info('Updating database code_version from %s to %s', options.code_version, code_version)
         options.code_version = code_version
+        session.add(options)
+        session.commit()
+
+    log_boot.info('CLI Port %d, wizlock %s', cli_args.port, cli_args.wizlock)
+    if cli_args.wizlock != options.wizlock:
+        log_boot.info('Wizlock changed from %s to %s', options.wizlock, cli_args.wizlock)
+        options.wizlock = cli_args.wizlock
+        session.add(options)
+        session.commit()
+
+    if cli_args.port != options.port:
+        log_boot.info('Port changed from %d to %d', options.port, cli_args.port)
+        options.port = cli_args.port
         session.add(options)
         session.commit()
 

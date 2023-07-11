@@ -81,3 +81,31 @@
     code to trust strftime(), expanded the microseconds places from 3 to 6.
     This change makes it easier to work with dates in PostgreSQL, since the
     client there will auto-convert to local timezone info as well.
+
+2023-07-11
+    Added a CLI argument parser so we can allow the user to specify settings
+    that will override what's stored in the option table.  These overrides
+    are sticky, so the table gets updated to reflect those changes.
+
+
+usage: wiley.py [-h] [-w] [-D] [-s] [-L LOGFILE] [-P PIDFILE] [-d DIRECTORY]
+                [port]
+
+        WileyMUD game server
+
+        positional arguments:
+          port                  player port number [1024-65535] for new connections
+
+        options:
+          -h, --help            show this help message and exit
+          -w, --wizlock         only allow wizards to connect
+          -D, --debug           enable extra debugging
+          -s, --specials        suppress special procedures
+          -L LOGFILE, --logfile LOGFILE
+                                file to write logs to
+          -P PIDFILE, --pidfile PIDFILE
+                                file to write process ID to for init
+          -d DIRECTORY, --directory DIRECTORY
+                                working directory to switch to
+
+    Not all the things listed are actually implemented (only wizlock and port)
